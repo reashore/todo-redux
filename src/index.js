@@ -1,12 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
 import './index.css';
-import App from './App';
+import App, {reducer} from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(reducer, []);
+const root = document.getElementById('root');
+const demoStore = () => {
+    console.log('initial state:');
+    console.log(store.getState());
+    
+    const unsubscribe = store.subscribe(() => {
+      console.log('store update, current state:');
+      console.log(store.getState());
+    });
+    
+    store.dispatch({
+      type: 'TODO_ADD',
+      todo: { id: '0', name: 'learn redux', completed: false },
+    });
+    
+    store.dispatch({
+      type: 'TODO_ADD',
+      todo: { id: '1', name: 'learn mobx', completed: false },
+    });
+    
+    store.dispatch({
+      type: 'TODO_TOGGLE',
+      todo: { id: '0' },
+    });
+    
+    unsubscribe();
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+ReactDOM.render(<App />, root);
+
+demoStore();
+
 serviceWorker.unregister();
