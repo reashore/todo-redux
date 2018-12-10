@@ -1,9 +1,16 @@
+import {combineReducers} from 'redux';
 import {
     TODO_ADD,
-    TODO_TOGGLE
+    TODO_TOGGLE,
+    FILTER_SET
 } from './constants';
   
-export function reducer(state, action) {
+const todos = [
+    {id: '0', name: 'Learn Redux'},
+    {id: '1', name: 'Learn Mobx'},
+];
+
+export function todoReducer(state = todos, action) {
     switch(action.type) {
       case TODO_ADD : 
         return applyAddTodo(state, action);
@@ -28,4 +35,25 @@ function applyToggleTodo(state, action) {
     );
 }
 
+//---------------------------------------------------
 
+function filterReducer(state = 'SHOW_ALL', action) {
+    switch(action.type) {
+        case FILTER_SET:
+            return applySetFilter(state, action);
+
+        default:
+            return state;
+    }
+}
+
+function applySetFilter(state, action) {
+    return action.filter;
+}
+
+//---------------------------------------------------
+
+export const rootReducer = combineReducers({
+    todoState: todoReducer,
+    filterState: filterReducer
+})
