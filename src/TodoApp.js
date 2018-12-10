@@ -2,7 +2,10 @@ import React from 'react';
 
 const TodoApp = ({todos, onToggleTodo}) => {
     return (
-        <TodoList todos={todos} onToggleTodo={onToggleTodo} />
+        <div>
+            <div>Todo Application</div>
+            <TodoList todos={todos} onToggleTodo={onToggleTodo} />
+        </div>
     );
 };
 
@@ -20,7 +23,7 @@ export const TodoList = ({todos, onToggleTodo}) => {
     );
 };
 
-export const TodoItem = (todo, onToggleTodo) => {
+export const TodoItem = ({todo, onToggleTodo}) => {
     const {id, name,completed} = todo;
     return (
         <div>

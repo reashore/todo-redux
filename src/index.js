@@ -28,15 +28,19 @@ const demoStore = () => {
 
     unsubscribe();
 }
-//const rootComponent1 = <App />;
-const rootComponent = <TodoApp todos={store.getState().todoState} onToggleTodo={id => store.dispatch(createToggleTodo(id))} />
+const onToggleTodo = (id) =>{
+    console.log('onToggleTodo');
+    store.dispatch(createToggleTodo(id))
+}
+const rootComponent = <TodoApp todos={store.getState().todoState} onToggleTodo={onToggleTodo} />
 
 const render = () => ReactDOM.render(rootComponent, root);
 store.subscribe(render);
 render();
 
-//ReactDOM.render(rootComponent, root);
+//demoStore();
 
-demoStore();
+//const rootComponent1 = <App />;
+//ReactDOM.render(rootComponent, root);
 
 serviceWorker.unregister();
