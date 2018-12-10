@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import './index.css';
-import App, {reducer} from './App';
+import App from './App';
+import {reducer} from './reducers';
+import {createAddTodo, createToggleTodo} from './actionCreators';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducer, []);
@@ -12,25 +14,14 @@ const demoStore = () => {
     console.log(store.getState());
     
     const unsubscribe = store.subscribe(() => {
-      console.log('store update, current state:');
+      console.log('store was updated, current state:');
       console.log(store.getState());
     });
     
-    store.dispatch({
-      type: 'TODO_ADD',
-      todo: { id: '0', name: 'learn redux', completed: false },
-    });
-    
-    store.dispatch({
-      type: 'TODO_ADD',
-      todo: { id: '1', name: 'learn mobx', completed: false },
-    });
-    
-    store.dispatch({
-      type: 'TODO_TOGGLE',
-      todo: { id: '0' },
-    });
-    
+    store.dispatch(createAddTodo('0', 'Learn Redux'));
+    store.dispatch(createAddTodo('1', 'Learn Mobx'));
+    store.dispatch(createToggleTodo('0'));
+
     unsubscribe();
 }
 
