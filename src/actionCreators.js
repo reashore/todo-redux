@@ -5,14 +5,14 @@ import {
 } from './constants';
 
 export function createAddTodo(id, name){
-    return{
+    return {
         type: TODO_ADD,
         todo: {id, name}
     }
 }
 
 export function createToggleTodo(id){
-    return{
+    return {
         type: TODO_TOGGLE,
         todo: {id}
     }
